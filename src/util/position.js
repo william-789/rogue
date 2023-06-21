@@ -1,31 +1,31 @@
 class Position {
-    #x;
-    #y;
+  #x;
+  #y;
 
-    constructor(x, y) {
-        this.#x = x;
-        this.#y = y;
-    }
+  constructor(x, y) {
+    this.#x = x;
+    this.#y = y;
+  }
 
-    plus(vector) {
-        //TODO
-    }
+  plus(vector) {
+    return new Position(this.#x + vector?.i, this.#y + vector?.j);
+  }
 
-    get x() {
-        return this.#x;
-    }
+  get x() {
+    return this.#x;
+  }
 
-    get y() {
-        return this.#y;
-    }
+  get y() {
+    return this.#y;
+  }
 
-    equals(position) {
-        return this.#x === position?.x && this.#y === position?.y;
-    }
+  equals(position) {
+    return this.#x === position?.x && this.#y === position?.y;
+  }
 
-    toString() {
-        return "(" + this.#x + ", " + this.#y + ")";
-    }
+  toString() {
+    return "(" + this.#x + ", " + this.#y + ")";
+  }
 }
 
 export default Position;
