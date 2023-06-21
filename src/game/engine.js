@@ -7,11 +7,13 @@ import Room from "./room.js";
 import room00 from "../../rooms/room0.js"; //delete
 
 import Direction from "../util/direction.js";
+import MovementController from "./movementController.js";
 
 class Engine {
   gui = Interface.getInstance();
   hero;
   rooms = [];
+  mControl;
 
   init() {
     console.log("Engine init");
@@ -31,11 +33,14 @@ class Engine {
     const room0 = new Room(room00, "room0");
     let roomObjects = room0.readPattern();
     this.rooms.push(roomObjects);
-    console.log(roomObjects);
     this.gui.addImages(roomObjects);
 
     this.hero = new Hero(room0.heroPosition);
     this.gui.addImage(this.hero);
+
+    this.mControl = new MovementController(this.hero, room0.enemies, roomObjects);
+    console.log(this.mControl.enemies);
+    console.log(this.mControl.hero);
 
     this.gui.start();
   }
@@ -43,17 +48,7 @@ class Engine {
   keyPressed(key) {
     let newK = key.replace(/arrow/i, "").toUpperCase();
     let vector = Direction[newK].asVector();
-    let nextPosition = this.hero.position.plus(vector);
-    let objectInRoom = this.rooms[0].find(
-      (object) =>
-        object.position.x === nextPosition.x &&
-        object.position.y === nextPosition.y
-    );
-    //move Hero if there's no wall
-    if (!objectInRoom || !objectInRoom.collision) {
-      this.hero.position = nextPosition;
-      this.gui.update();
-    }
+    this.mControl.handleMovement(vector);
   }
 }
 

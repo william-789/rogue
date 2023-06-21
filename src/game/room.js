@@ -70,6 +70,9 @@ class Room {
   get state() {
     return this.#state;
   }
+  get enemies() {
+    return this.#enemies;
+  }
 }
 
 export default Room;
