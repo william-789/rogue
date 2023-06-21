@@ -5,6 +5,7 @@ import Key from "../objects/key.js";
 import Meat from "../objects/meat.js";
 import Skeleton from "../objects/skeleton.js";
 import Wall from "../objects/wall.js";
+import Enemy from "../objects/Enemy.js";
 import Position from "../util/position.js"; // Position
 
 class Room {
@@ -12,6 +13,7 @@ class Room {
   #pattern;
   name;
   #heroPosition;
+  #enemies = [];
 
   constructor(pattern, name) {
     this.#pattern = pattern;
@@ -29,8 +31,10 @@ class Room {
       for (let x = 0; x < 10; x++) {
         let newObject = this.returnObject(gameLines[y][x], x, y);
         if (newObject) objectList.push(newObject);
+        if(newObject instanceof Enemy) this.#enemies.push(newObject);
       }
     }
+
     this.#state = objectList;
     return objectList;
   }
