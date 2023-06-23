@@ -14,6 +14,7 @@ class Room {
   name;
   #heroPosition;
   #enemies = [];
+  #itens = [];
 
   constructor(pattern, name) {
     this.#pattern = pattern;
@@ -32,6 +33,7 @@ class Room {
         let newObject = this.returnObject(gameLines[y][x], x, y);
         if (newObject) objectList.push(newObject);
         if(newObject instanceof Enemy) this.#enemies.push(newObject);
+        if(newObject && newObject.isItem) this.#itens.push(newObject);
       }
     }
 
