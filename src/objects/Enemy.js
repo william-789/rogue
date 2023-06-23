@@ -1,6 +1,6 @@
-import ImageTile from "../game/imageTile.js";
+import Character from "./Character.js";
 
-class Enemy extends ImageTile {
+class Enemy extends Character {
     constructor(position) {
         super(position);
     }

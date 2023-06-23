@@ -1,13 +1,21 @@
-import ImageTile from "../game/imageTile.js";
+import Character from "./Character.js";
 
-class Hero extends ImageTile {
-    constructor(position) {
-        super(position);
-    }
+class Hero extends Character {
 
-    get image() {
-        return "Hero.png";
-    }
+  // static #instance;
+  // static getInstance() {
+  //     if(Hero.#instance === undefined) {
+  //         Hero.#instance = new Hero();
+  //     }
+  //     return Hero.#instance;
+  // }
+  constructor(position) {
+    super(position);
+  }
+
+  get image() {
+    return "Hero.png";
+  }
 }
 
 export default Hero;
