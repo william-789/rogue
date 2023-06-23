@@ -8,12 +8,14 @@ import room00 from "../../rooms/room0.js"; //delete
 
 import Direction from "../util/direction.js";
 import MovementController from "./movementController.js";
+import StatusBar from "./statusBar.js";
 
 class Engine {
   gui = Interface.getInstance();
   hero;
   rooms = [];
   mControl;
+  mStatus = new StatusBar();
 
   init() {
     console.log("Engine init");
@@ -42,10 +44,17 @@ class Engine {
     console.log(this.mControl.enemies);
     console.log(this.mControl.hero);
 
+    this.mStatus.initialState();
+    this.gui.addStatusImages(this.mStatus.getObjStatus());
+
     this.gui.start();
   }
 
   keyPressed(key) {
+    if(!isNaN(+key)) {
+      this.mStatus.dropItem(+key);
+      this.gui.update();
+    }
     let newK = key.replace(/arrow/i, "").toUpperCase();
     let vector = Direction[newK].asVector();
     this.mControl.handleMovement(vector);
