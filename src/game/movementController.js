@@ -30,14 +30,15 @@ class MovementController {
       }
       this.hero.position = this.hero.nextPosition;
       this.gui.update();
+    } else {
+      throw new Error("You'll get a nosebleed if you collide again...")
     }
   }
 
   collision(char, roomObjects) {
     let objectInRoom = roomObjects.find(
       (object) =>
-        object.position.x === char.nextPosition.x &&
-        object.position.y === char.nextPosition.y
+        object.position.equals(char.nextPosition)
     );
     if (!objectInRoom || !objectInRoom.collision) return false;
     return true;

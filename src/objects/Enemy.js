@@ -1,5 +1,6 @@
 import Character from "./Character.js";
 import Direction from "../util/direction.js";
+
 class Enemy extends Character {
   static closeDistSquared = 5; // Min (2,1) or (1,2)
   distToHeroSq;
@@ -8,13 +9,11 @@ class Enemy extends Character {
   }
 
   // set next position
-  move() {
+  move(heroPos) {
     let close = this.distToHeroSq <= Enemy.closeDistSquared;
     console.log("Is hero close?", close);
-    // TO DO
-    // if(close) this.chaseHero();
-    // else
-    this.randomMove();
+    if(close) this.chaseHero(heroPos);
+    else this.randomMove();
   }
 
   getDistToHero(heroPosition) {
@@ -35,9 +34,25 @@ class Enemy extends Character {
     this.nextPosition = this.position.plus(vector);
   }
 
-  chaseHero() {}
-
-
+  chaseHero(heroPos) {
+    const distX = heroPos.x - this.position.x;
+    const distY = heroPos.y - this.position.y;
+    //checks larger dist to define orientation of movement
+    if (Math.abs(distX) > Math.abs(distY)) {
+      if (distX < 0) {
+        this.nextPosition = this.position.plus(Direction.LEFT.asVector());
+      } else {
+        this.nextPosition = this.position.plus(Direction.RIGHT.asVector());
+      }
+    } else {
+      if (distY < 0) {
+        this.nextPosition = this.position.plus(Direction.UP.asVector());
+      } else {
+        this.nextPosition = this.position.plus(Direction.DOWN.asVector());
+      }
+    }
+    console.log("Chasing hero");
+  }
 }
 
 export default Enemy;
