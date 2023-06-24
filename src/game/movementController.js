@@ -2,18 +2,17 @@ import Interface from "./interface.js";
 class MovementController {
   hero;
   enemies;
-  roomObjects;
   gui = Interface.getInstance();
 
-  constructor(hero, enemies, room) {
+  constructor(hero) {
     this.hero = hero;
-    this.enemies = enemies;
-    this.roomObjects = room;
   }
 
-  handleMovement(vector) {
+  handleMovement(vector, room) {
+    let roomObjects = room.getState();
+    this.enemies = room.enemies;
     let nextPosition = this.hero.position.plus(vector);
-    let objectInRoom = this.roomObjects.find(
+    let objectInRoom = roomObjects.find(
       (object) =>
         object.position.x === nextPosition.x &&
         object.position.y === nextPosition.y
