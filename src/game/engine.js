@@ -15,7 +15,8 @@ class Engine {
   hero;
   rooms = [];
   mControl;
-  mStatus = new StatusBar();
+  statusBar = StatusBar.getInstance();
+  currentRoom;
 
   init() {
     console.log("Engine init");
@@ -35,29 +36,37 @@ class Engine {
     const room0 = new Room(room00, "room0");
     let roomObjects = room0.readPattern();
     this.rooms.push(roomObjects);
+    this.currentRoom = room0;//change
     this.gui.addImages(roomObjects);
 
     this.hero = new Hero(room0.heroPosition);
     this.gui.addImage(this.hero);
 
     this.mControl = new MovementController(this.hero, room0.enemies, roomObjects);
-    console.log(this.mControl.enemies);
-    console.log(this.mControl.hero);
 
-    this.mStatus.initialState();
-    this.gui.addStatusImages(this.mStatus.getObjStatus());
+    this.statusBar.init(this.hero);
+
+    this.gui.addStatusImages(this.statusBar.getObjStatus());
 
     this.gui.start();
   }
 
   keyPressed(key) {
     if(!isNaN(+key)) {
-      this.mStatus.dropItem(+key);
-      this.gui.update();
+      try {
+        let droppedItem = this.statusBar.dropItem(+key, this.currentRoom.getState());
+        this.currentRoom.changeState(droppedItem);
+        this.gui.addImage(droppedItem);
+        this.gui.update();
+      } catch (e) {
+        console.log("Error:", e.message);
+      }
+    } else {
+      let newK = key.replace(/arrow/i, "").toUpperCase();
+      let vector = Direction[newK].asVector();
+      this.mControl.handleMovement(vector);
     }
-    let newK = key.replace(/arrow/i, "").toUpperCase();
-    let vector = Direction[newK].asVector();
-    this.mControl.handleMovement(vector);
+
   }
 }
 
