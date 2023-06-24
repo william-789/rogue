@@ -38,7 +38,7 @@ class Room {
     }
 
     this.#state = objectList;
-    return objectList;
+    return this.#state;
   }
 
   returnObject(element, x, y) {
@@ -65,15 +65,20 @@ class Room {
     }
   }
 
+  changeState(obj) {
+    if(obj) this.#state.push(obj);
+  }
+
   get heroPosition() {
     return this.#heroPosition;
   }
 
-  get state() {
-    return this.#state;
-  }
   get enemies() {
     return this.#enemies;
+  }
+
+  getState() {
+    return this.#state;
   }
 }
 
