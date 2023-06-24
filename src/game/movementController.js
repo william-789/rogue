@@ -1,4 +1,5 @@
 import Interface from "./interface.js";
+import Enemy from "../objects/Enemy.js";
 class MovementController {
   hero;
   enemies;
@@ -18,9 +19,12 @@ class MovementController {
       // reset collision to check for enemy movement
       for (const enemy of this.enemies) {
         collision = true;
+        enemy.getDistToHero(this.hero.position);
         while(collision) {
           enemy.move(this.hero.position);
           collision = this.collision(enemy,roomObjects);
+          // consider Hero as far if there's a wall between them
+          if(collision) enemy.distToHeroSq = Enemy.closeDistSquared + 1;
         }
         enemy.position = enemy.nextPosition;
       }
