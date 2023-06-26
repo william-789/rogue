@@ -6,6 +6,7 @@ import Position from "../util/position.js";
 class Hero extends Character {
   fireBalls;
   items = [];
+  points = -1; // lost points for moving/per movement
 
   constructor(position) {
     super(position);
