@@ -26,7 +26,21 @@ class Hero extends Character {
     return "Hero.png";
   }
 
-  pickUpItem() {}
+  pickUp(item) {
+    if(this.items.length === 3) {
+      throw new Error("Bag is full of items already!");
+    }
+    for (let i = 7; i <= 9; i++) {
+      const unavaiablePos = this.items.find((storedItem) => storedItem.position.x === i);
+      if(!unavaiablePos) {
+        item.position = new Position(i,0);
+        this.items.push(item);
+        console.log("Item added to bag on position x = ", i-6);
+        break;
+      }
+    }
+
+  }
 
   dropItem(delIndex) {
     this.items.splice(delIndex,1);

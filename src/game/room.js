@@ -69,6 +69,12 @@ class Room {
     if(obj) this.#state.push(obj);
   }
 
+  removeFromState(obj) {
+    let position = this.#state.findIndex((object) => object === obj);
+    if(position !== -1) this.#state.splice(position,1);
+    else throw new Error("Object not found in room");
+  }
+
   get heroPosition() {
     return this.#heroPosition;
   }

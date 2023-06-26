@@ -50,8 +50,11 @@ class StatusBar {
     }
     throw new Error("Item not found.");
   }
-  //UPDATE
-  //yet to test, depends on MovementController
+
+  pickUp(item) {
+    this.hero.pickUp(item);
+    this.gui.addStatusImage(item);
+  }
 
   getHealth() {
     let x = 3;
