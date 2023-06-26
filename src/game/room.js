@@ -6,7 +6,8 @@ import Meat from "../objects/meat.js";
 import Skeleton from "../objects/skeleton.js";
 import Wall from "../objects/wall.js";
 import Enemy from "../objects/Enemy.js";
-import Position from "../util/position.js"; // Position
+import Position from "../util/position.js";
+import Door from "../objects/door.js"; // Position
 
 class Room {
   #state;
@@ -42,24 +43,27 @@ class Room {
   }
 
   returnObject(element, x, y) {
+    const position = new Position(x,y);
     switch (element) {
       case "W":
-        return new Wall(new Position(x, y));
+        return new Wall(position);
       case "S":
-        return new Skeleton(new Position(x, y));
+        return new Skeleton(position);
       case "h":
-        return new Hammer(new Position(x, y));
+        return new Hammer(position);
       case "B":
-        return new Bat(new Position(x, y));
+        return new Bat(position);
       case "k":
-        return new Key(new Position(x, y));
+        return new Key(position);
       case "G":
-        return new BadGuy(new Position(x, y));
+        return new BadGuy(position);
       case "m":
-        return new Meat(new Position(x, y));
+        return new Meat(position);
       case "H":
-        this.#heroPosition = new Position(x, y);
+        this.#heroPosition = position;
         break;
+      case "0":
+        return new Door(position);
       default:
         return undefined;
     }
