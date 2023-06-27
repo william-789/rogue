@@ -9,12 +9,16 @@ class Health extends ImageTile {
 
   get image() {
     if(this.healthCount === 1)
+      return "GreenFull.png";
+    else if (this.healthCount === 0.75) {
       return "Green.png";
-    else if (this.healthCount === 0.5) {
+    } else if (this.healthCount === 0.5) {
       return "RedGreen.png";
+    } else if (this.healthCount === 0.25) {
+      return "Red.png";
     }
     else
-      return "Red.png";
+      return "RedEmpty.png";
   }
 }
 

@@ -64,9 +64,15 @@ class StatusBar {
       if(copyHealth >= 1) {
         this.health.push(new Health(new Position(x,0),1));
         decrease = 1;
+      } else if(copyHealth >= 0.75) {
+        this.health.push(new Health(new Position(x,0),0.75));
+        decrease = 0.75;
       } else if(copyHealth >= 0.5) {
         this.health.push(new Health(new Position(x,0),0.5));
         decrease = 0.5;
+      } else if(copyHealth >= 0.25) {
+        this.health.push(new Health(new Position(x,0),0.25));
+        decrease = 0.25;
       } else {
         this.health.push(new Health(new Position(x,0),0));
       }
