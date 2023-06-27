@@ -20,6 +20,7 @@ class Room {
   constructor(pattern, name) {
     this.#pattern = pattern;
     this.name = name;
+    this.active = false;
   }
 
   readPattern() {
