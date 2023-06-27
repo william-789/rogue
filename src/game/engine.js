@@ -62,7 +62,17 @@ class Engine {
   }
 
   keyPressed(key) {
-    if(!isNaN(+key)) {
+    if(key === "Space") {
+      try {
+        let fireball = this.hero.getFireball();
+        this.gui.removeStatusImage(fireball); // update StatusBar
+        fireball.position = this.hero.position;
+        this.gui.addImage(fireball);
+        fireball.start();
+      } catch (e) {
+        console.log("Error:", e.message);
+      }
+    } else if(!isNaN(+key)) {
       try {
         let droppedItem = this.statusBar.dropItem(+key, this.currentRoom.getState());
         this.currentRoom.changeState(droppedItem);

@@ -46,6 +46,16 @@ class Hero extends Character {
   dropItem(delIndex) {
     this.items.splice(delIndex,1);
   }
+
+  getFireball() {
+    const lastPos = this.fireBalls.length -1;
+    const fireball = this.fireBalls[lastPos];
+    if(fireball) {
+      this.fireBalls.splice(lastPos,1);
+      return fireball;
+    }
+    else throw new Error("All fireballs have been used already.");
+  }
 }
 
 export default Hero;
