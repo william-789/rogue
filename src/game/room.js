@@ -16,7 +16,8 @@ class Room {
   name;
   #heroPosition;
   #enemies = [];
-  #itens = [];
+  keyName;
+  doorsData = [];
 
   constructor(pattern, name) {
     this.#pattern = pattern;
@@ -27,16 +28,21 @@ class Room {
   readPattern() {
     let lines = this.#pattern.split("\n");
     let gameLines = [];
+    let configLines = [];
     for (let line of lines) {
       if (line[0] !== "#") gameLines.push(line);
+      else configLines.push(line);
     }
+    for(let config of configLines) {
+      this.getRoomConfiguration(config);
+    }
+    console.log(this.doorsData);
     let objectList = [];
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
         let newObject = this.returnObject(gameLines[y][x], x, y);
         if (newObject) objectList.push(newObject);
         if(newObject instanceof Enemy) this.#enemies.push(newObject);
-        if(newObject && newObject.isItem) this.#itens.push(newObject);
       }
     }
 
@@ -102,6 +108,25 @@ class Room {
 
   getState() {
     return this.#state;
+  }
+
+  getRoomConfiguration(line) {
+    if(line.includes(" k ")) {
+      const [,, name] = line.split(' ');
+      this.keyName = name;
+    } else {
+      // set keyRequired to null if info doesn't exist
+      const [, doorId, doorType, nextRoom, nextDoor, keyRequired] = line.split(' ').length === 5
+        ? [...line.split(' '), null]
+        : line.split(' ');
+      if(doorType) this.doorsData.push({
+        doorId,
+        doorType,
+        nextRoom,
+        nextDoor,
+        keyRequired,
+      });
+    }
   }
 }
 
