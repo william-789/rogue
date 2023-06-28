@@ -3,8 +3,6 @@ import Floor from "../objects/floor.js";
 import Hero from "../objects/hero.js";
 import Interface from "./interface.js";
 import Room from "./room.js";
-
-import Direction from "../util/direction.js";
 import MovementController from "./movementController.js";
 import StatusBar from "./statusBar.js";
 
@@ -40,10 +38,6 @@ class Engine {
       }
     }
     this.gui.addImages(floorTiles);
-
-    //let fireball = new FireBall(new Position(5, 3), Direction.RIGHT);
-    //this.gui.addImage(fireball);
-    //fireball.start();
 
     // Set current room and add to gui
     this.currentRoom = this.rooms[0];//change
@@ -84,9 +78,8 @@ class Engine {
       }
     } else {
       let newK = key.replace(/arrow/i, "").toUpperCase();
-      let vector = Direction[newK].asVector();
       try {
-        this.mControl.handleMovement(vector, this.currentRoom);
+        this.mControl.handleMovement(newK, this.currentRoom);
       } catch (e) {
         console.log("Error:", e.message);
       }
