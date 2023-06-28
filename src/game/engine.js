@@ -67,6 +67,7 @@ class Engine {
         let fireball = this.hero.getFireball();
         this.gui.removeStatusImage(fireball); // update StatusBar
         fireball.position = this.hero.position;
+        fireball.room = this.currentRoom;
         this.gui.addImage(fireball);
         fireball.start();
       } catch (e) {

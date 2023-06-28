@@ -14,9 +14,9 @@ class Hero extends Character {
     this.health = 4;
     this.attack = 1;
     this.fireBalls = [
-      new FireBall(new Position(0,0)),
-      new FireBall(new Position(1,0)),
-      new FireBall(new Position(2,0))
+      new FireBall(new Position(0,0),this),
+      new FireBall(new Position(1,0),this),
+      new FireBall(new Position(2,0),this)
     ];
     this.items = [
       new Meat(new Position(7,0)),
