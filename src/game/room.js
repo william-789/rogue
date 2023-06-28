@@ -17,6 +17,8 @@ class Room {
   #heroPosition;
   #enemies = [];
   #itens = [];
+  keyName;
+  doorsData = [];
 
   constructor(pattern, name) {
     this.#pattern = pattern;
@@ -27,8 +29,13 @@ class Room {
   readPattern() {
     let lines = this.#pattern.split("\n");
     let gameLines = [];
+    let configLines = [];
     for (let line of lines) {
       if (line[0] !== "#") gameLines.push(line);
+      else configLines.push(line);
+    }
+    for(let config of configLines) {
+      this.getRoomConfiguration(config);
     }
     let objectList = [];
     for (let y = 0; y < 10; y++) {
@@ -102,6 +109,26 @@ class Room {
 
   getState() {
     return this.#state;
+  }
+
+  getRoomConfiguration(line) {
+    if(line.includes(" k ")) {
+      const [,, name] = line.split(' ');
+      this.keyName = name;
+    } else {
+      // set keyRequired to null if info doesn't exist
+      const [, doorId, doorType, nextRoom, nextDoor, keyRequired] = line.split(' ').length === 5
+        ? [...line.split(' '), null]
+        : line.split(' ');
+      this.doorsData.push({
+        doorId,
+        doorType,
+        nextRoom,
+        nextDoor,
+        keyRequired,
+      });
+    }
+    return;
   }
 }
 
