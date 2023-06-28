@@ -5,6 +5,7 @@ class Hammer extends Weapon {
     super(position);
     this.isItem = true;
     this.additionalAttack = 3;
+    this.type = this.constructor.name;
   }
 
   get image() {

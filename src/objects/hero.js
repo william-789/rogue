@@ -21,6 +21,7 @@ class Hero extends Character {
       new Meat(new Position(8,0)),
       new Meat(new Position(9,0))
     ];
+    this.type = "Movement"; // points type
   }
 
   get image() {

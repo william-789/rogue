@@ -1,9 +1,11 @@
 class Score {
   description;
   points;
-  constructor(description, points) {
+  type;
+  constructor(description, points, type) {
     this.description = description;
     this.points = points;
+    this.type = type;
   }
 }
 

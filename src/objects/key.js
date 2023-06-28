@@ -5,6 +5,7 @@ class Key extends ImageTile {
   constructor(position) {
     super(position);
     this.isItem = true;
+    this.type = this.constructor.name;
   }
 
   get image() {

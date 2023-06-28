@@ -4,6 +4,7 @@ class Meat extends ImageTile {
   points = 10; // points for consumption
   constructor(position) {
     super(position);
+    this.type = this.constructor.name;
   }
 
   get image() {
