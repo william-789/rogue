@@ -5,6 +5,7 @@ import Interface from "./interface.js";
 import Room from "./room.js";
 import MovementController from "./movementController.js";
 import StatusBar from "./statusBar.js";
+import StateManager from "../util/stateManager.js";
 
 //Room string patterns imports
 import room00 from "../../rooms/room0.js";
@@ -20,6 +21,7 @@ class Engine {
   mControl;
   statusBar = StatusBar.getInstance();
   currentRoom;
+  saveName = "";
 
   init() {
     console.log("Engine init");
@@ -56,6 +58,25 @@ class Engine {
   }
 
   keyPressed(key) {
+    // if(key === "F1" || key === "F2" || key === "F3" || key === "F4") { // save slot keys
+    //   const savedState = StateManager.loadState(key);
+    //   if(!(this.saveName === key) && savedState) {
+    //     console.log("Loading state saved on slot", key);
+    //     deserialize(savedState);
+    //   } else {
+    //     if(this.saveName === key) console.log("Current saved state will be overwritten");
+    //     console.log("Saving on slot", key);
+    //     this.saveName = key;
+    //     const currentGame = [
+    //       this.hero,
+    //       this.rooms,
+    //       this.currentRoom,
+    //       this.scoreRegistry,
+    //       this.saveName
+    //     ];
+    //     StateManager.saveState(currentGame,key)
+    //   }
+    // } else
     if(key === "Space") { // FireBall key
       try {
         let fireball = this.hero.getFireball();
