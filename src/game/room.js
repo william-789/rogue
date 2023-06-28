@@ -118,7 +118,7 @@ class Room {
       const [, doorId, doorType, nextRoom, nextDoor, keyRequired] = line.split(' ').length === 5
         ? [...line.split(' '), null]
         : line.split(' ');
-      this.doorsData.push({
+      if(doorType) this.doorsData.push({
         doorId,
         doorType,
         nextRoom,
