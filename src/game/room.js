@@ -7,7 +7,8 @@ import Skeleton from "../objects/skeleton.js";
 import Wall from "../objects/wall.js";
 import Enemy from "../objects/Enemy.js";
 import Position from "../util/position.js";
-import Door from "../objects/door.js"; // Position
+import Door from "../objects/door.js";
+import Thief from "../objects/thief.js";
 
 class Room {
   #state;
@@ -60,6 +61,8 @@ class Room {
         return new BadGuy(position);
       case "m":
         return new Meat(position);
+      case "T":
+        return new Thief(position);
       case "H":
         this.#heroPosition = position;
         break;
