@@ -76,7 +76,7 @@ class Engine {
       try {
         let droppedItem = this.statusBar.dropItem(+key, this.currentRoom.getState());
         this.currentRoom.changeState(droppedItem);
-        this.gui.addImage(droppedItem);
+        this.gui.addImage(droppedItem,this.hero);
         this.gui.update();
       } catch (e) {
         console.log("Error:", e.message);
