@@ -71,6 +71,7 @@ class Hero extends Character {
     const lastPos = this.fireBalls.length -1;
     const fireball = this.fireBalls[lastPos];
     if(fireball) {
+      fireball.updateDirection(Direction[this.direction]);
       this.fireBalls.splice(lastPos,1);
       return fireball;
     }

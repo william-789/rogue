@@ -1,5 +1,6 @@
 import ImageTile from "./imageTile.js";
 import Interface from "./interface.js";
+import Direction from "../util/direction.js";
 
 /**
 * Classe base para poder extender e criar a FireBall.
@@ -36,6 +37,9 @@ class FireTile extends ImageTile {
                 this.#gui.removeImage(this);
             }, 150);
         }
+    }
+    updateDirection(newDirection) {
+        if(newDirection.constructor === Direction)this.#direction = newDirection;
     }
 }
 
