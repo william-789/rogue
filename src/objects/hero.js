@@ -2,6 +2,7 @@ import Character from "./Character.js";
 import FireBall from "../objects/fireBall.js";
 import Meat from "../objects/meat.js";
 import Position from "../util/position.js";
+import Weapon from "./Weapon.js";
 
 class Hero extends Character {
   fireBalls;
@@ -33,11 +34,16 @@ class Hero extends Character {
     if(this.items.length === 3) {
       throw new Error("Bag is full of items already!");
     }
+    if(item instanceof Weapon) {
+      const weapon = this.items.find((weapon) => weapon instanceof Weapon);
+      if(weapon) throw new Error("Can't hold more than one weapon");
+    }
     for (let i = 7; i <= 9; i++) {
-      const unavaiablePos = this.items.find((storedItem) => storedItem.position.x === i);
-      if(!unavaiablePos) {
+      const unavailablePos = this.items.find((storedItem) => storedItem.position.x === i);
+      if(!unavailablePos) {
         item.position = new Position(i,0);
         this.items.push(item);
+        if(item instanceof Weapon) this.attack += item.additionalAttack;
         console.log("Item added to bag on position x = ", i-6);
         break;
       }
@@ -46,6 +52,7 @@ class Hero extends Character {
   }
 
   dropItem(delIndex) {
+    if(this.items[delIndex] instanceof Weapon) this.attack -= this.items[delIndex].additionalAttack;
     this.items.splice(delIndex,1);
   }
 

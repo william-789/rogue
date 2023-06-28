@@ -4,7 +4,7 @@ class Hammer extends Weapon {
   constructor(position) {
     super(position);
     this.isItem = true;
-    this.additionalAttack = 3;
+    this.additionalAttack = 0.5;
     this.type = this.constructor.name;
   }
 
