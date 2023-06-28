@@ -3,8 +3,6 @@ import Floor from "../objects/floor.js";
 import Hero from "../objects/hero.js";
 import Interface from "./interface.js";
 import Room from "./room.js";
-
-import Direction from "../util/direction.js";
 import MovementController from "./movementController.js";
 import StatusBar from "./statusBar.js";
 
@@ -41,10 +39,6 @@ class Engine {
     }
     this.gui.addImages(floorTiles);
 
-    //let fireball = new FireBall(new Position(5, 3), Direction.RIGHT);
-    //this.gui.addImage(fireball);
-    //fireball.start();
-
     // Set current room and add to gui
     this.currentRoom = this.rooms[0];//change
     this.gui.addImages(this.currentRoom.readPattern());
@@ -62,7 +56,7 @@ class Engine {
   }
 
   keyPressed(key) {
-    if(key === "Space") {
+    if(key === "Space") { // FireBall key
       try {
         let fireball = this.hero.getFireball();
         this.gui.removeStatusImage(fireball); // update StatusBar
@@ -73,7 +67,7 @@ class Engine {
       } catch (e) {
         console.log("Error:", e.message);
       }
-    } else if(!isNaN(+key)) {
+    } else if(!isNaN(+key)) { // Drop item key 1-2-3
       try {
         let droppedItem = this.statusBar.dropItem(+key, this.currentRoom.getState());
         this.currentRoom.changeState(droppedItem);
@@ -82,11 +76,10 @@ class Engine {
       } catch (e) {
         console.log("Error:", e.message);
       }
-    } else {
+    } else { // walk
       let newK = key.replace(/arrow/i, "").toUpperCase();
-      let vector = Direction[newK].asVector();
       try {
-        this.mControl.handleMovement(vector, this.currentRoom);
+        this.mControl.handleMovement(newK, this.currentRoom);
       } catch (e) {
         console.log("Error:", e.message);
       }

@@ -2,6 +2,7 @@ import Interface from "./interface.js";
 import Enemy from "../objects/Enemy.js";
 import StatusBar from "./statusBar.js";
 import Blood from "../objects/Blood.js";
+import Direction from "../util/direction.js";
 
 class MovementController {
   hero;
@@ -13,7 +14,8 @@ class MovementController {
     this.hero = hero;
   }
 
-  handleMovement(vector, room) {
+  handleMovement(key, room) {
+    let vector = Direction[key].asVector();
     this.enemies = room.enemies;
     let roomObjects = room.getState();
     this.hero.nextPosition = this.hero.position.plus(vector);
