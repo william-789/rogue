@@ -11,6 +11,7 @@ class Hero extends Character {
   constructor(position) {
     super(position);
     this.health = 4;
+    this.attack = 1;
     this.fireBalls = [
       new FireBall(new Position(0,0)),
       new FireBall(new Position(1,0)),

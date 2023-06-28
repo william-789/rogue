@@ -1,6 +1,8 @@
 import Interface from "./interface.js";
 import Enemy from "../objects/Enemy.js";
 import StatusBar from "./statusBar.js";
+import Blood from "../objects/Blood.js";
+import blood from "../objects/Blood.js";
 
 class MovementController {
   hero;
@@ -20,6 +22,7 @@ class MovementController {
     //proceeds if there's no wall
     if (!collision) {
       const objectInRoom = this.objectInRoom(this.hero,roomObjects);
+      // collects item
       if(objectInRoom && objectInRoom.isItem) {
         try {
           this.statusBar.pickUp(objectInRoom);
@@ -38,6 +41,25 @@ class MovementController {
           collision = this.collision(enemy,roomObjects);
           // consider Hero as far if there's a wall between them
           if(collision) enemy.distToHeroSq = Enemy.closeDistSquared + 1;
+        }
+        // checks if hero attacks or enemy attacks
+        if(enemy.position.equals(this.hero.nextPosition)) {
+          enemy.health -= this.hero.attack;
+          if(enemy.health <= 0) {
+            // Remove dead enemy from scene and add its remains
+            room.removeEnemy(enemy);
+            this.gui.removeImage(enemy);
+            let deadEnemy = new Blood(enemy.position);
+            this.gui.addImage(deadEnemy, this.hero);
+          } else {
+            enemy.nextPosition = enemy.position;
+          }
+          this.hero.nextPosition = this.hero.position;
+        } else if (enemy.nextPosition.equals(this.hero.nextPosition)){
+          this.hero.health -= enemy.attack
+          // YET TO CHECK IF HERO IS DEAD
+          this.hero.nextPosition = this.hero.position;
+          this.statusBar.update();
         }
         enemy.position = enemy.nextPosition;
       }

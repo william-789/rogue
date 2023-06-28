@@ -5,6 +5,8 @@ class Skeleton extends Enemy {
   constructor(position) {
     super(position);
     this.type = this.constructor.name;
+    this.attack = 0.25;
+    this.health = 0.5;
   }
 
   get image() {

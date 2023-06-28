@@ -80,6 +80,15 @@ class Room {
     else throw new Error("Object not found in room");
   }
 
+  removeEnemy(obj) {
+    let position = this.#enemies.findIndex((object) => object === obj);
+    if(position !== -1) {
+      this.#enemies.splice(position,1);
+      this.removeFromState(obj);
+    }
+    else throw new Error("Enemy not found in room");
+  }
+
   get heroPosition() {
     return this.#heroPosition;
   }

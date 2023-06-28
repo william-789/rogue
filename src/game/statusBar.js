@@ -80,6 +80,14 @@ class StatusBar {
       x++;
     }
   }
+
+  update() {
+    console.log("Hero health status", this.hero.health);
+    this.health.splice(0,this.health.length);
+    this.getHealth();
+    this.gui.clearStatusImages();
+    this.gui.addStatusImages(this.getObjStatus());
+  }
 }
 
 export default StatusBar;

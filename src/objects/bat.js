@@ -5,6 +5,8 @@ class Bat extends Enemy {
   constructor(position) {
     super(position);
     this.type = this.constructor.name;
+    this.attack = 0.75;
+    this.health = 2;
   }
 
   get image() {

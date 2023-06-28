@@ -5,6 +5,8 @@ class BadGuy extends Enemy {
   constructor(position) {
     super(position);
     this.type = this.constructor.name;
+    this.attack = 1.25;
+    this.health = 3;
   }
 
   get image() {
