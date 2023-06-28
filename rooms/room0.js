@@ -1,6 +1,6 @@
 export default `
 #
-# 0 D room1.txt 2
+# 0 D room1 2
 #
 WWWW0WWWWW
 W        W

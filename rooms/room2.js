@@ -1,7 +1,7 @@
 export default `
 #
-# 0 D room1.txt 1 key1
-# 1 D room1.txt 0
+# 0 D room1 1 key1
+# 1 D room1 0
 #
 # k key1
 #
