@@ -99,10 +99,12 @@ class Engine {
       }
     } else { // walk
       let newK = key.replace(/arrow/i, "").toUpperCase();
-      try {
-        this.mControl.handleMovement(newK, this.currentRoom);
-      } catch (e) {
-        console.log("Error:", e.message);
+      if(newK === "RIGHT" || newK === "LEFT" || newK === "UP" || newK === "DOWN") {
+        try {
+          this.mControl.handleMovement(newK, this.currentRoom);
+        } catch (e) {
+          console.log("Error:", e.message);
+        }
       }
     }
 

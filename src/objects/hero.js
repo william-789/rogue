@@ -3,6 +3,7 @@ import FireBall from "../objects/fireBall.js";
 import Meat from "../objects/meat.js";
 import Position from "../util/position.js";
 import Weapon from "./Weapon.js";
+import Direction from "../util/direction.js";
 
 class Hero extends Character {
   fireBalls;
@@ -24,10 +25,20 @@ class Hero extends Character {
       new Meat(new Position(9,0))
     ];
     this.type = "Movement"; // points type
+    this.direction = "RIGHT";
   }
 
   get image() {
-    return "Hero.png";
+    if(this.direction === "RIGHT") {
+      return "HeroRight.png";
+    }
+    if(this.direction === "LEFT") {
+      return "HeroLeft.png";
+    }
+    if(this.direction === "DOWN") {
+      return "HeroFront.png";
+    }
+    return "HeroBack.png";
   }
 
   pickUp(item) {
