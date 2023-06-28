@@ -2,6 +2,14 @@ import Score from "./score.js";
 class ScoreManager {
   registryList = []
   types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement"];
+
+  static #instance;
+  static getInstance() {
+    if(ScoreManager.#instance === undefined) {
+      ScoreManager.#instance = new ScoreManager();
+    }
+    return ScoreManager.#instance;
+  }
   constructor() {
   }
 
