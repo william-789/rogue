@@ -36,7 +36,6 @@ class Room {
     for(let config of configLines) {
       this.getRoomConfiguration(config);
     }
-    console.log(this.doorsData);
     let objectList = [];
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
@@ -119,7 +118,7 @@ class Room {
       const [, doorId, doorType, nextRoom, nextDoor, keyRequired] = line.split(' ').length === 5
         ? [...line.split(' '), null]
         : line.split(' ');
-      if(doorType) this.doorsData.push({
+      this.doorsData.push({
         doorId,
         doorType,
         nextRoom,
