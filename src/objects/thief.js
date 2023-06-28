@@ -25,13 +25,19 @@ class Thief extends Enemy {
   }
 
   chaseHero(heroPos) {
-    const movementOptions = ["UP", "RIGHT", "DOWN", "LEFT"];
-    const randomIndex = Math.floor(Math.random()*movementOptions.length);
-    let nextIndex = randomIndex === movementOptions.length-1 ? 0 : randomIndex + 1;
-    const vector = Direction[movementOptions[randomIndex]].asVector();
-    const nextVector = Direction[movementOptions[nextIndex]].asVector();
+    const distX = heroPos.x - this.position.x;
+    const distY = heroPos.y - this.position.y;
 
-    this.nextPosition = this.position.plus(vector.plus(nextVector));
+    if(distX > 0 && distY > 0) {
+      this.nextPosition = this.position.plus(Direction.RIGHT.asVector().plus(Direction.DOWN.asVector()));
+    } else if(distX < 0 && distY > 0) {
+      this.nextPosition = this.position.plus(Direction.LEFT.asVector().plus(Direction.DOWN.asVector()));
+    } else if(distX < 0 && distY < 0) {
+      this.nextPosition = this.position.plus(Direction.LEFT.asVector().plus(Direction.UP.asVector()));
+    } else {
+      this.nextPosition = this.position.plus(Direction.RIGHT.asVector().plus(Direction.UP.asVector()));
+    }
+    console.log("Chasing hero");
   }
 }
 

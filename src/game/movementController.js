@@ -2,7 +2,6 @@ import Interface from "./interface.js";
 import Enemy from "../objects/Enemy.js";
 import StatusBar from "./statusBar.js";
 import Blood from "../objects/Blood.js";
-import blood from "../objects/Blood.js";
 
 class MovementController {
   hero;

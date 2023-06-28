@@ -18,12 +18,6 @@ class Enemy extends Character {
 
   getDistToHero(heroPosition) {
     this.distToHeroSq = (this.position.x - heroPosition.x)**2 + (this.position.y - heroPosition.y)**2;
-    if(this.distToHeroSq > Enemy.closeDistSquared) {
-      console.log("Far from hero");
-    }
-    else {
-      console.log("Close to hero");
-    }
   }
 
   randomMove() {
