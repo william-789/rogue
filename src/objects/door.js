@@ -3,9 +3,13 @@ import ImageTile from "../game/imageTile.js";
 class Door extends ImageTile {
   isEntranceway = false;
   open = false;
-  constructor(position) {
+  keyRequired;
+  nextDoor;
+  nextRoom;
+  constructor(position, doorId) {
     super(position);
     this.collision = true;
+    this.doorId = doorId;
   }
 
   get image() {

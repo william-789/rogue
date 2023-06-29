@@ -39,7 +39,11 @@ class Room {
     for (let y = 0; y < 10; y++) {
       for (let x = 0; x < 10; x++) {
         let newObject = this.returnObject(gameLines[y][x], x, y);
-        if (newObject) objectList.push(newObject);
+        if (newObject) {
+          objectList.push(newObject);
+          if(newObject instanceof Door) this.configDoor(newObject);
+          if(newObject instanceof Key) newObject.name = this.keyName;
+        }
       }
     }
 
@@ -69,10 +73,12 @@ class Room {
       case "H":
         this.#heroPosition = position;
         break;
-      case "0":
-        return new Door(position);
       default:
-        return undefined;
+        if (!isNaN(parseInt(element))) {
+          return new Door(position, element);
+        } else {
+          return undefined;
+        }
     }
   }
 
@@ -114,6 +120,22 @@ class Room {
         nextDoor,
         keyRequired,
       });
+    }
+  }
+
+  configDoor(door){
+    const data = this.doorsData.find((doorConfig) => doorConfig.doorId = door.doorId);
+    if(data) {
+      door.nextDoor = data.nextDoor;
+      door.nextRoom = data.nextRoom;
+      if(data.doorType === "E") {
+        door.isEntranceway = true;
+        door.open = true;
+      } else if (data.keyRequired) {
+        door.keyRequired = data.keyRequired;
+      } else {
+        door.open = true
+      }
     }
   }
 }
