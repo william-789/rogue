@@ -26,9 +26,10 @@ class FireBall extends FireTile {
         object.health -= this.strength;
         if(object.health <= 0) {
           // Remove dead object from scene and add its remains
-          this.room.removeEnemy(object);
+          this.room.removeFromState(object);
           this.gui.removeImage(object);
           let deadEnemy = new Blood(object.position);
+          this.room.changeState(deadEnemy);
           this.gui.addImage(deadEnemy, this.heroRef);
         }
       }
