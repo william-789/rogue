@@ -52,7 +52,7 @@ class MovementController {
             enemy.health -= this.hero.attack;
             if(enemy.health <= 0) {
               // Remove dead enemy from scene and add its remains
-              room.removeEnemy(enemy);
+              room.removeFromState(enemy);
               this.gui.removeImage(enemy);
               let deadEnemy = new Blood(enemy.position);
               this.gui.addImage(deadEnemy, this.hero);

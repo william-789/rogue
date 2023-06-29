@@ -15,7 +15,6 @@ class Room {
   #pattern;
   name;
   #heroPosition;
-  #enemies = [];
   keyName;
   doorsData = [];
 
@@ -41,7 +40,6 @@ class Room {
       for (let x = 0; x < 10; x++) {
         let newObject = this.returnObject(gameLines[y][x], x, y);
         if (newObject) objectList.push(newObject);
-        if(newObject instanceof Enemy) this.#enemies.push(newObject);
       }
     }
 
@@ -88,21 +86,12 @@ class Room {
     else throw new Error("Object not found in room");
   }
 
-  removeEnemy(obj) {
-    let position = this.#enemies.findIndex((object) => object === obj);
-    if(position !== -1) {
-      this.#enemies.splice(position,1);
-      this.removeFromState(obj);
-    }
-    else throw new Error("Enemy not found in room");
-  }
-
   get heroPosition() {
     return this.#heroPosition;
   }
 
   get enemies() {
-    return this.#enemies;
+    return this.#state.filter((obj) => obj instanceof Enemy);
   }
 
   getState() {
