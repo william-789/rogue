@@ -22,6 +22,7 @@ class Engine {
   statusBar = StatusBar.getInstance();
   currentRoom;
   saveName = "";
+  floor;
 
   init() {
     console.log("Engine init");
@@ -29,29 +30,27 @@ class Engine {
     // Create all rooms and store them
     for(let pattern of roomPatterns) {
       const room = new Room(pattern, `room${this.rooms.length}`);
+      room.readPattern();
       this.rooms.push(room);
     }
     // Make floor
-    let floorTiles = [];
-    for (let x = 0; x < 10; x++) {
-      for (let y = 0; y < 10; y++) {
-        let position = new Position(x, y);
-        floorTiles.push(new Floor(position));
-      }
-    }
-    this.gui.addImages(floorTiles);
+    this.floor = this.makeFloor();
+    this.gui.addImages(this.floor);
 
     // Set current room and add to gui
     this.currentRoom = this.rooms[0];//change
-    this.gui.addImages(this.currentRoom.readPattern());
+    this.currentRoom.active = true;
+    this.gui.addImages(this.currentRoom.getState());
 
+    // Add hero to gui
     this.hero = new Hero(this.currentRoom.heroPosition);
     this.gui.addImage(this.hero);
 
+    // Creates MovementController
     this.mControl = new MovementController(this.hero);
 
+    // Add statusBar to gui
     this.statusBar.init(this.hero);
-
     this.gui.addStatusImages(this.statusBar.getObjStatus());
 
     this.gui.start();
@@ -101,13 +100,60 @@ class Engine {
       let newK = key.replace(/arrow/i, "").toUpperCase();
       if(newK === "RIGHT" || newK === "LEFT" || newK === "UP" || newK === "DOWN") {
         try {
-          this.mControl.handleMovement(newK, this.currentRoom);
+          // return door if next tile is a door,
+          // else handle the movement and return is undefined
+          const door = this.mControl.handleMovement(newK, this.currentRoom);
+          if(door) this.handleDoor(door);
         } catch (e) {
           console.log("Error:", e.message);
         }
       }
     }
+  }
 
+  handleDoor(door) {
+    //tries to open door
+    if(!door.open) {
+      const key = this.hero.getKey(door.keyRequired);
+      if(key) {
+        door.open = true;
+        this.statusBar.update();
+      }
+    }
+    if(door.open) {
+      this.hero.Position = this.hero.nextPosition;
+      this.gui.update();
+      this.changeRoom(door)
+    } else {
+      throw new Error("Door is locked and you don't have the right key!");
+    }
+    this.gui.update()
+  }
+
+  changeRoom(door){
+    this.currentRoom.active = false;
+    const nextRoom = this.rooms.find((room) => room.name === door.nextRoom)
+    if(!nextRoom) throw new Error("Room isn't in the game");
+    this.currentRoom = nextRoom;
+    this.currentRoom.active = true;
+    const nextDoor = this.currentRoom.getState().find((obj) => obj.doorId === door.nextDoor);
+    nextDoor.open = true;
+    this.hero.position = nextDoor.position;
+    this.gui.clearImages();
+    this.gui.addImages(this.floor);
+    this.gui.addImages(this.currentRoom.getState());
+    this.gui.addImage(this.hero);
+  }
+
+  makeFloor() {
+    let floorTiles = [];
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
+        let position = new Position(x, y);
+        floorTiles.push(new Floor(position));
+      }
+    }
+    return floorTiles;
   }
 }
 

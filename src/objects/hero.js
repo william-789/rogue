@@ -77,6 +77,17 @@ class Hero extends Character {
     }
     else throw new Error("All fireballs have been used already.");
   }
+
+  getKey(keyName) {
+    const keyIndex = this.items.findIndex((key) => key.name === keyName);
+    console.log(keyName, this.items[keyIndex]);
+    if (keyIndex > -1) {
+      const key = this.items[keyIndex];
+      this.items.splice(keyIndex, 1);
+      return key;
+    }
+    return undefined;
+  }
 }
 
 export default Hero;

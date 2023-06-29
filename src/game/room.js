@@ -124,7 +124,7 @@ class Room {
   }
 
   configDoor(door){
-    const data = this.doorsData.find((doorConfig) => doorConfig.doorId = door.doorId);
+    const data = this.doorsData.find((doorConfig) => doorConfig.doorId === door.doorId);
     if(data) {
       door.nextDoor = data.nextDoor;
       door.nextRoom = data.nextRoom;

@@ -3,6 +3,7 @@ import Enemy from "../objects/Enemy.js";
 import StatusBar from "./statusBar.js";
 import Blood from "../objects/Blood.js";
 import Direction from "../util/direction.js";
+import Door from "../objects/door.js";
 
 class MovementController {
   hero;
@@ -27,6 +28,10 @@ class MovementController {
       //proceeds if there's no wall
       if (!collision) {
         const objectInRoom = this.objectInRoom(this.hero,roomObjects);
+        if(objectInRoom instanceof Door) {
+          // return door to engine to handle room change
+          return objectInRoom;
+        }
         // collects item
         if(objectInRoom && objectInRoom.isItem) {
           try {
@@ -78,6 +83,7 @@ class MovementController {
 
   collision(char, roomObjects) {
     let objectInRoom = this.objectInRoom(char, roomObjects);
+    if(char === this.hero && objectInRoom instanceof Door) return false;
     if (!objectInRoom || !objectInRoom.collision) return false;
     return true;
   }
