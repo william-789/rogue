@@ -20,6 +20,8 @@ class Room {
   constructor(name) {
     this.name = name;
     this.active = false;
+    this.#state = [];
+    this.keyName = '';
   }
 
   readPattern(pattern) {
