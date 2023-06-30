@@ -11,6 +11,7 @@ import StateManager from "../util/stateManager.js";
 import room00 from "../../rooms/room0.js";
 import room01 from "../../rooms/room1.js";
 import room02 from "../../rooms/room2.js";
+import ScoreManager from "./scoreManager.js";
 
 const roomPatterns = [room00,room01,room02];
 
@@ -23,14 +24,16 @@ class Engine {
   currentRoom;
   saveName = "";
   floor;
+  EOG = false; // End of Game
+  scoreManager = ScoreManager.getInstance();
 
   init() {
     console.log("Engine init");
 
     // Create all rooms and store them
     for(let pattern of roomPatterns) {
-      const room = new Room(pattern, `room${this.rooms.length}`);
-      room.readPattern();
+      const room = new Room(`room${this.rooms.length}`);
+      room.readPattern(pattern);
       this.rooms.push(room);
     }
     // Make floor
@@ -57,25 +60,31 @@ class Engine {
   }
 
   keyPressed(key) {
-    // if(key === "F1" || key === "F2" || key === "F3" || key === "F4") { // save slot keys
-    //   const savedState = StateManager.loadState(key);
-    //   if(!(this.saveName === key) && savedState) {
-    //     console.log("Loading state saved on slot", key);
-    //     deserialize(savedState);
-    //   } else {
-    //     if(this.saveName === key) console.log("Current saved state will be overwritten");
-    //     console.log("Saving on slot", key);
-    //     this.saveName = key;
-    //     const currentGame = [
-    //       this.hero,
-    //       this.rooms,
-    //       this.currentRoom,
-    //       this.scoreRegistry,
-    //       this.saveName
-    //     ];
-    //     StateManager.saveState(currentGame,key)
-    //   }
-    // } else
+    if(this.EOG) {
+      console.log("You ended the game. Press F5 to start again or load another state.");
+      return;
+    }
+    if(key === "F1" || key === "F2" || key === "F3" || key === "F4") { // save slot keys
+      const savedState = StateManager.loadState(key);
+      if(!(this.saveName === key) && savedState) {
+        console.log("Loading state saved on slot", key);
+        this.saveName = key;
+        // updateGameState(savedState);
+      } else {
+        if(this.saveName === key) console.log("Current saved state will be overwritten");
+        console.log("Saving on slot", key);
+        this.saveName = key;
+        const currentGame = [
+          this.hero,
+          this.rooms,
+          this.currentRoom,
+          this.scoreManager,
+          this.saveName
+        ];
+        StateManager.saveState(currentGame,key);
+        console.log(JSON.stringify(currentGame));
+      }
+    } else
     if(key === "Space") { // FireBall key
       try {
         let fireball = this.hero.getFireball();
@@ -157,6 +166,8 @@ class Engine {
     }
     return floorTiles;
   }
+
+  updateGameState() {} // uses deserializer
 }
 
 export default Engine;
