@@ -12,6 +12,12 @@ class Key extends ImageTile {
   get image() {
     return "Key.png";
   }
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type
+    }
+  }
 }
 
 export default Key;

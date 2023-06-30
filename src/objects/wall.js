@@ -10,6 +10,12 @@ class Wall extends ImageTile {
     get image() {
         return "Wall.png";
     }
+
+    toJSON() {
+        return {
+            position: this.position
+        }
+    }
 }
 
 export default Wall;

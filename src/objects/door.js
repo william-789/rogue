@@ -21,6 +21,19 @@ class Door extends ImageTile {
     }
     return "DoorClosed.png";
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      isEntranceway: this.isEntranceway,
+      open: this.open,
+      keyRequired: this.keyRequired,
+      nextDoor: this.nextDoor,
+      nextRoom: this.nextRoom,
+      collision: this.collision,
+      doorId: this.doorId
+    }
+  }
 }
 
 export default Door;

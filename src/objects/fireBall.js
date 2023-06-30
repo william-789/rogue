@@ -41,6 +41,12 @@ class FireBall extends FireTile {
     }
     return false;
   }
+
+  toJSON() {
+    return {
+      position: this.position
+    }
+  }
 }
 
 export default FireBall;

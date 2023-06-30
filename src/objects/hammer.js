@@ -11,6 +11,13 @@ class Hammer extends Weapon {
   get image() {
     return "Hammer.png";
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type
+    }
+  }
 }
 
 export default Hammer;

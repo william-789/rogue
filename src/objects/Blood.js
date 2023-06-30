@@ -8,6 +8,12 @@ class Blood extends ImageTile {
   get image() {
     return "Blood.gif";
   }
+
+  toJSON() {
+    return {
+      position: this.position
+    }
+  }
 }
 
 export default Blood;

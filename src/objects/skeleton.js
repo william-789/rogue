@@ -12,6 +12,14 @@ class Skeleton extends Enemy {
   get image() {
     return "Skeleton.gif";
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type,
+      health: this.health
+    }
+  }
 }
 
 export default Skeleton;

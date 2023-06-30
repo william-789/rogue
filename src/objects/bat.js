@@ -12,6 +12,14 @@ class Bat extends Enemy {
   get image() {
     return "Bat.gif";
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type,
+      health: this.health
+    }
+  }
 }
 
 export default Bat;

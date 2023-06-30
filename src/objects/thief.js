@@ -39,6 +39,14 @@ class Thief extends Enemy {
     }
     console.log("Chasing hero");
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type,
+      health: this.health
+    }
+  }
 }
 
 export default Thief;

@@ -20,11 +20,6 @@ class Hero extends Character {
       new FireBall(new Position(1,0),this),
       new FireBall(new Position(2,0),this)
     ];
-    this.items = [
-      new Meat(new Position(7,0)),
-      new Meat(new Position(8,0)),
-      new Meat(new Position(9,0))
-    ];
     this.type = "Movement"; // points type
     this.direction = "RIGHT";
   }
@@ -94,6 +89,19 @@ class Hero extends Character {
     if(this.health + food.healthRecovery <= Hero.maxHealth)
       this.health += food.healthRecovery;
     else this.health = Hero.maxHealth;
+  }
+
+  toJSON(){
+    return {
+      position: this.position,
+      fireBalls: this.fireBalls,
+      items: this.items,
+      points: this.points,
+      health: this.health,
+      attack: this.attack,
+      type: this.type,
+      direction: this.direction
+    }
   }
 }
 

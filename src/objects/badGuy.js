@@ -12,6 +12,14 @@ class BadGuy extends Enemy {
   get image() {
     return "BadGuy.gif";
   }
+
+  toJSON() {
+    return {
+      position: this.position,
+      type: this.type,
+      health: this.health
+    }
+  }
 }
 
 export default BadGuy;
