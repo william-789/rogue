@@ -13,7 +13,8 @@ class Wall extends ImageTile {
 
     toJSON() {
         return {
-            position: this.position
+            position: this.position,
+            type: "Wall"
         }
     }
 }

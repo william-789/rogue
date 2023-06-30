@@ -11,7 +11,8 @@ class Blood extends ImageTile {
 
   toJSON() {
     return {
-      position: this.position
+      position: this.position,
+      type: "Blood"
     }
   }
 }

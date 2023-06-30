@@ -31,7 +31,8 @@ class Door extends ImageTile {
       nextDoor: this.nextDoor,
       nextRoom: this.nextRoom,
       collision: this.collision,
-      doorId: this.doorId
+      doorId: this.doorId,
+      type: "DSoor"
     }
   }
 }
