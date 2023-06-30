@@ -6,12 +6,14 @@ import Room from "./room.js";
 import MovementController from "./movementController.js";
 import StatusBar from "./statusBar.js";
 import StateManager from "../util/stateManager.js";
+import ScoreManager from "./scoreManager.js";
+import Deserializer from "../util/deserializer.js";
 
 //Room string patterns imports
 import room00 from "../../rooms/room0.js";
 import room01 from "../../rooms/room1.js";
 import room02 from "../../rooms/room2.js";
-import ScoreManager from "./scoreManager.js";
+import floor from "../objects/floor.js";
 
 const roomPatterns = [room00,room01,room02];
 
@@ -26,6 +28,7 @@ class Engine {
   floor;
   EOG = false; // End of Game
   scoreManager = ScoreManager.getInstance();
+  deserializer = new Deserializer();
 
   init() {
     console.log("Engine init");
@@ -69,7 +72,7 @@ class Engine {
       if(!(this.saveName === key) && savedState) {
         console.log("Loading state saved on slot", key);
         this.saveName = key;
-        // updateGameState(savedState);
+        this.updateGameState(savedState);
       } else {
         if(this.saveName === key) console.log("Current saved state will be overwritten");
         console.log("Saving on slot", key);
@@ -77,12 +80,9 @@ class Engine {
         const currentGame = [
           this.hero,
           this.rooms,
-          this.currentRoom,
-          this.scoreManager,
-          this.saveName
+          this.scoreManager
         ];
         StateManager.saveState(currentGame,key);
-        console.log(JSON.stringify(currentGame));
       }
     } else
     if(key === "Space") { // FireBall key
@@ -167,7 +167,19 @@ class Engine {
     return floorTiles;
   }
 
-  updateGameState() {} // uses deserializer
+  updateGameState(savedState) {
+    let [hero, rooms, scoreManager] = savedState;
+    this.deserializer.hero(hero, this.hero); // update hero with stored data
+    this.rooms = this.deserializer.rooms(rooms);
+    this.currentRoom = this.rooms.find((room) => room.active);
+    this.scoreManager.registryList = this.deserializer.scoreList(scoreManager.registryList); // replace score registry
+    this.statusBar.update();
+    this.gui.clearImages();
+    this.gui.addImages(this.floor);
+    this.gui.addImages(this.currentRoom.getState());
+    this.gui.addImage(this.hero);
+    this.gui.update();
+  }
 }
 
 export default Engine;

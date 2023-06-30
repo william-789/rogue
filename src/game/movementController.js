@@ -73,6 +73,7 @@ class MovementController {
               room.removeFromState(enemy);
               this.gui.removeImage(enemy);
               let deadEnemy = new Blood(enemy.position);
+              room.changeState(deadEnemy);
               this.gui.addImage(deadEnemy, this.hero);
             } else {
               enemy.nextPosition = enemy.position;
