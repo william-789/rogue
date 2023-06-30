@@ -7,7 +7,7 @@ W        W
 W  S     W
 WWWWW    W
 W   W    W
-W   W  WWW
+W m W  WWW
 W  H     W
 W        W
 W        W
