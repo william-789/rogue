@@ -1,7 +1,7 @@
 import Score from "./score.js";
 class ScoreManager {
   registryList = []
-  types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement"];
+  types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement","Thief"];
 
   static #instance;
   static getInstance() {
