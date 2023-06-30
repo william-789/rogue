@@ -16,7 +16,8 @@ class Meat extends ImageTile {
   toJSON() {
     return {
       position: this.position,
-      type: this.type
+      type: this.type,
+      isItem: this.isItem
     }
   }
 }

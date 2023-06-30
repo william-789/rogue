@@ -99,7 +99,6 @@ class Hero extends Character {
       points: this.points,
       health: this.health,
       attack: this.attack,
-      type: this.type,
       direction: this.direction
     }
   }
