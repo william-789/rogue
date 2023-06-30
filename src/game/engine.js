@@ -143,6 +143,8 @@ class Engine {
     this.gui.addImages(this.floor);
     this.gui.addImages(this.currentRoom.getState());
     this.gui.addImage(this.hero);
+    const roomName = this.currentRoom.name;
+    this.gui.showMessage(`${roomName.slice(0,-1)} ${roomName.charAt(roomName.length-1)}`,"room");
   }
 
   makeFloor() {
