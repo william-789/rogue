@@ -6,12 +6,14 @@ import Direction from "../util/direction.js";
 import Door from "../objects/door.js";
 import Meat from "../objects/meat.js";
 import Hero from "../objects/hero.js";
+import ScoreManager from "./scoreManager.js";
 
 class MovementController {
   hero;
   enemies;
   gui = Interface.getInstance();
   statusBar = StatusBar.getInstance();
+  scoreManager = ScoreManager.getInstance();
 
   constructor(hero) {
     this.hero = hero;
@@ -44,6 +46,7 @@ class MovementController {
             } else { // collect item
               this.statusBar.pickUp(objectInRoom);
             }
+            this.scoreManager.addRecord(objectInRoom.type, objectInRoom.points); // register points
             room.removeFromState(objectInRoom);
             this.gui.removeImage(objectInRoom);
           } catch (e) {
@@ -64,6 +67,8 @@ class MovementController {
           if(enemy.position.equals(this.hero.nextPosition)) {
             enemy.health -= this.hero.attack;
             if(enemy.health <= 0) {
+              // Register points
+              this.scoreManager.addRecord(enemy.type, enemy.points);
               // Remove dead enemy from scene and add its remains
               room.removeFromState(enemy);
               this.gui.removeImage(enemy);
@@ -82,6 +87,7 @@ class MovementController {
           enemy.position = enemy.nextPosition;
         }
         this.hero.position = this.hero.nextPosition;
+        this.scoreManager.addRecord(this.hero.type, this.hero.points);
         this.gui.update();
       } else {
         throw new Error("You'll get a nosebleed if you collide again...")

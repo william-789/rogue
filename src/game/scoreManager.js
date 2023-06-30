@@ -13,11 +13,14 @@ class ScoreManager {
   constructor() {
   }
 
-  addRecord(description, points, type) {
-    if(points !== 0) {
-      const score = new Score(description,points, type);
-      this.registryList.push(score);
-    }
+  addRecord(type, points) {
+    const isRecognised = this.types.indexOf(type);
+    if(isRecognised > -1) {
+      if(points !== 0) {
+        const score = new Score( type, points);
+        this.registryList.push(score);
+      }
+    } else throw new TypeError("Record type not recognised.");
   }
 
   getFinalScore() {
@@ -31,7 +34,8 @@ class ScoreManager {
 
   sumByType(type) {
     const scoresOfType = this.registryList.filter((score) => score.type === type);
-    return scoresOfType.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const scorePoints = scoresOfType.map((score) => score.points);
+    return scorePoints.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
   }
 
   toString() {

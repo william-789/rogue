@@ -4,12 +4,14 @@ import Enemy from "./Enemy.js";
 import Direction from "../util/direction.js";
 import Blood from "./Blood.js";
 import Interface from "../game/interface.js";
+import ScoreManager from "../game/scoreManager.js";
 
 class FireBall extends FireTile {
   room;
   heroRef;
   strength;
   gui = Interface.getInstance();
+  scoreManager = ScoreManager.getInstance();
   constructor(position, heroRef) {
     super(position, Direction.LEFT);
     this.heroRef = heroRef;
@@ -25,6 +27,8 @@ class FireBall extends FireTile {
       if(object instanceof Enemy) {
         object.health -= this.strength;
         if(object.health <= 0) {
+          // Register points
+          this.scoreManager.addRecord(object.type, object.points);
           // Remove dead object from scene and add its remains
           this.room.removeFromState(object);
           this.gui.removeImage(object);
