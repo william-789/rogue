@@ -4,6 +4,8 @@ import StatusBar from "./statusBar.js";
 import Blood from "../objects/Blood.js";
 import Direction from "../util/direction.js";
 import Door from "../objects/door.js";
+import Meat from "../objects/meat.js";
+import Hero from "../objects/hero.js";
 
 class MovementController {
   hero;
@@ -16,7 +18,7 @@ class MovementController {
   }
 
   handleMovement(key, room) {
-    if(this.hero.direction != key) {
+    if(this.hero.direction !== key) { // change hero image based on direction
       this.hero.direction = key;
       this.gui.update();
     } else {
@@ -32,10 +34,16 @@ class MovementController {
           // return door to engine to handle room change
           return objectInRoom;
         }
-        // collects item
+        // item verification
         if(objectInRoom && objectInRoom.isItem) {
           try {
-            this.statusBar.pickUp(objectInRoom);
+            // consume meat
+            if(objectInRoom instanceof Meat && this.hero.health < Hero.maxHealth) {
+              this.hero.eat(objectInRoom);
+              this.statusBar.update();
+            } else { // collect item
+              this.statusBar.pickUp(objectInRoom);
+            }
             room.removeFromState(objectInRoom);
             this.gui.removeImage(objectInRoom);
           } catch (e) {

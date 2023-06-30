@@ -9,6 +9,7 @@ class Hero extends Character {
   fireBalls;
   items = [];
   points = -1; // lost points for moving/per movement
+  static maxHealth = 4;
 
   constructor(position) {
     super(position);
@@ -87,6 +88,12 @@ class Hero extends Character {
       return key;
     }
     return undefined;
+  }
+
+  eat(food) {
+    if(this.health + food.healthRecovery <= Hero.maxHealth)
+      this.health += food.healthRecovery;
+    else this.health = Hero.maxHealth;
   }
 }
 
