@@ -46,6 +46,12 @@ class ScoreManager {
     s += `Final Score: ${this.getFinalScore()}`;
     return s;
   }
+
+  toJSON() {
+    return {
+      registryList: this.registryList
+    }
+  }
 }
 
 export default ScoreManager;

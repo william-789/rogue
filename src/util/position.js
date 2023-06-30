@@ -26,6 +26,13 @@ class Position {
   toString() {
     return "(" + this.#x + ", " + this.#y + ")";
   }
+
+  toJSON() {
+    return {
+      x: this.#x,
+      y: this.#y
+    }
+  }
 }
 
 export default Position;

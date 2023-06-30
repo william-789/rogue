@@ -12,20 +12,18 @@ import Thief from "../objects/thief.js";
 
 class Room {
   #state;
-  #pattern;
   name;
   #heroPosition;
   keyName;
   doorsData = [];
 
-  constructor(pattern, name) {
-    this.#pattern = pattern;
+  constructor(name) {
     this.name = name;
     this.active = false;
   }
 
-  readPattern() {
-    let lines = this.#pattern.split("\n");
+  readPattern(pattern) {
+    let lines = pattern.split("\n");
     let gameLines = [];
     let configLines = [];
     for (let line of lines) {
@@ -136,6 +134,14 @@ class Room {
       } else {
         door.open = true
       }
+    }
+  }
+
+  toJSON() {
+    return {
+      state: this.#state,
+      name: this.name,
+      active: this.active
     }
   }
 }
