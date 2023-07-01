@@ -1,7 +1,8 @@
 import Score from "./score.js";
 class ScoreManager {
   registryList = []
-  types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement","Thief"];
+  types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement","Thief","Diamond"];
+  EOG = false; // End of Game
 
   static #instance;
   static getInstance() {
@@ -54,6 +55,7 @@ class ScoreManager {
   }
 
   endOfGame() {
+    this.EOG = true;
     let scoreWrapper = document.getElementById("score-wrapper");
     let scoreElement = document.getElementById("score");
     let typeWrapper = document.createElement("div");

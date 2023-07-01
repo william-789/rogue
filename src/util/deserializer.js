@@ -20,6 +20,8 @@ import Wall from "../objects/wall.js";
 
 import Score from "../game/score.js";
 import Enemy from "../objects/Enemy.js";
+import Diamond from "../objects/diamond.js";
+import Darkness from "../objects/dark.js";
 // ScoreManager
 export default class Deserializer {
   constructor() {
@@ -62,6 +64,8 @@ export default class Deserializer {
         return new Meat(position);
       case "Hammer":
         return new Hammer(position);
+      case "Diamond":
+        return new Diamond(position);
       default:
         break;
     }
@@ -89,6 +93,8 @@ export default class Deserializer {
         return new Wall(position);
       case "Door":
         return this.door(object);
+      case "Darkness":
+        return new Darkness(position);
       case "BadGuy":
         return new BadGuy(position);
       case "Bat":

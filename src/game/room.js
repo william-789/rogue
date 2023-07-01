@@ -9,6 +9,8 @@ import Enemy from "../objects/Enemy.js";
 import Position from "../util/position.js";
 import Door from "../objects/door.js";
 import Thief from "../objects/thief.js";
+import Diamond from "../objects/diamond.js";
+import Darkness from "../objects/dark.js";
 
 class Room {
   #state;
@@ -70,6 +72,10 @@ class Room {
         return new Meat(position);
       case "T":
         return new Thief(position);
+      case "D":
+        return new Diamond(position);
+      case "d":
+        return new Darkness(position);
       case "H":
         this.#heroPosition = position;
         break;
