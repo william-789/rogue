@@ -76,7 +76,6 @@ class Hero extends Character {
 
   getKey(keyName) {
     const keyIndex = this.items.findIndex((key) => key.name === keyName);
-    console.log(keyName, this.items[keyIndex]);
     if (keyIndex > -1) {
       const key = this.items[keyIndex];
       this.items.splice(keyIndex, 1);

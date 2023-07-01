@@ -16,7 +16,8 @@ class Key extends ImageTile {
     return {
       position: this.position,
       type: this.type,
-      isItem: this.isItem
+      isItem: this.isItem,
+      name: this.name
     }
   }
 }
