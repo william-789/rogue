@@ -26,7 +26,6 @@ class Engine {
   currentRoom;
   saveName = "";
   floor;
-  EOG = false; // End of Game
   scoreManager = ScoreManager.getInstance();
   deserializer = new Deserializer();
 
@@ -63,7 +62,7 @@ class Engine {
   }
 
   keyPressed(key) {
-    if(this.EOG) {
+    if(this.scoreManager.EOG) {
       console.log("You ended the game. Press F5 to start again or load another state.");
       return;
     }

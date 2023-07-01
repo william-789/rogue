@@ -7,6 +7,7 @@ import Door from "../objects/door.js";
 import Meat from "../objects/meat.js";
 import Hero from "../objects/hero.js";
 import ScoreManager from "./scoreManager.js";
+import Diamond from "../objects/diamond.js";
 
 class MovementController {
   hero;
@@ -49,6 +50,7 @@ class MovementController {
             this.scoreManager.addRecord(objectInRoom.type, objectInRoom.points); // register points
             room.removeFromState(objectInRoom);
             this.gui.removeImage(objectInRoom);
+            if(objectInRoom instanceof Diamond) this.scoreManager.endOfGame();
           } catch (e) {
             console.log("Error:", e.message);
           }
@@ -81,7 +83,7 @@ class MovementController {
             this.hero.nextPosition = this.hero.position;
           } else if (enemy.nextPosition.equals(this.hero.nextPosition)){
             this.hero.health -= enemy.attack
-            // YET TO CHECK IF HERO IS DEAD
+            if(this.hero.health <= 0) this.scoreManager.endOfGame();
             this.hero.nextPosition = this.hero.position;
             this.statusBar.update();
           }
