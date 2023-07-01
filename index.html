@@ -160,6 +160,42 @@
             background-color: #ffff00;
             border: 2px solid #cccc00;
         }
+        .score-wrapper {
+            position: absolute;
+            top: 9%;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(155,20,63,0.1);
+            visibility: hidden;
+        }
+        .score-wrapper.show {
+            visibility: visible;
+        }
+        .score {
+            min-width: 25%;
+            margin: auto;
+            background-color: #21234f;
+            padding: 20px;
+            border-radius: 20px;
+            border-width: 20px;
+            outline: 5px solid #d7d783;
+            outline-offset: -15px;
+            display: flex;
+            justify-content: space-around;
+        }
+        .score p {
+            border-bottom: 2px solid #d7d783;
+            margin: 2px;
+            padding: 5px;
+            color: #d7d783;
+        }
+        .score p.finalScore {
+            color: #28e590;
+            border-color: #28e590;
+        }
     </style>
 </head>
 <body>
@@ -168,6 +204,9 @@
     </div>
     <div id="message-wrapper" class="message-wrapper">
         <div id="message" class="message">This is a message</div>
+    </div>
+    <div id="score-wrapper" class="score-wrapper">
+        <div id= "score" class="score"></div>
     </div>
     <div class="controller">
         <div class="numpad">

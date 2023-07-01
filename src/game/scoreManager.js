@@ -52,6 +52,35 @@ class ScoreManager {
       registryList: this.registryList
     }
   }
+
+  endOfGame() {
+    let scoreWrapper = document.getElementById("score-wrapper");
+    let scoreElement = document.getElementById("score");
+    let typeWrapper = document.createElement("div");
+    let pointWrapper = document.createElement("div");
+    for (const type of this.types) {
+      let typeElement = document.createElement("p");
+      typeElement.innerHTML = `${type}`;
+      let pointElement = document.createElement("p");
+      pointElement.innerHTML = `${this.sumByType(type)}`;
+      typeWrapper.appendChild(typeElement);
+      pointWrapper.appendChild(pointElement);
+    }
+    let finalScoreEl = document.createElement("p");
+    finalScoreEl.classList.add("finalScore");
+    finalScoreEl.innerHTML = "Final Score";
+    let finalScore = document.createElement("p");
+    finalScore.classList.add("finalScore");
+    finalScore.innerHTML = `${this.getFinalScore()}`;
+    typeWrapper.appendChild(finalScoreEl);
+    pointWrapper.appendChild(finalScore);
+    scoreElement.append(typeWrapper,pointWrapper);
+    // style based on game height
+    const game = document.getElementById("game");
+    scoreWrapper.style.minHeight = game.offsetHeight + "px";
+
+    scoreWrapper.classList.add("show");
+  }
 }
 
 export default ScoreManager;
