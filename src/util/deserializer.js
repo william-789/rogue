@@ -79,7 +79,7 @@ export default class Deserializer {
     newDoor.keyRequired = door.keyRequired;
     newDoor.nextDoor = door.nextDoor;
     newDoor.nextRoom = door.nextRoom;
-    newDoor.collision = door.collision; // remove
+    newDoor.isHole = door.isHole;
     return newDoor;
   }
 

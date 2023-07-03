@@ -2,10 +2,11 @@ import ImageTile from "../game/imageTile.js";
 
 class Door extends ImageTile {
   isEntranceway = false;
-  open = false;
+  open = true;
   keyRequired;
   nextDoor;
   nextRoom;
+  isHole = false;
   constructor(position, doorId) {
     super(position);
     this.collision = true;
@@ -13,6 +14,9 @@ class Door extends ImageTile {
   }
 
   get image() {
+    if(this.isHole) {
+      return "Hole.png";
+    }
     if(this.isEntranceway) {
       return "DoorWay.png";
     }
@@ -30,8 +34,8 @@ class Door extends ImageTile {
       keyRequired: this.keyRequired,
       nextDoor: this.nextDoor,
       nextRoom: this.nextRoom,
-      collision: this.collision,
       doorId: this.doorId,
+      isHole: this.isHole,
       type: "Door"
     }
   }

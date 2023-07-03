@@ -136,11 +136,11 @@ class Room {
       door.nextRoom = data.nextRoom;
       if(data.doorType === "E") {
         door.isEntranceway = true;
-        door.open = true;
+      } else if(data.doorType === "H") {
+        door.isHole = true;
       } else if (data.keyRequired) {
         door.keyRequired = data.keyRequired;
-      } else {
-        door.open = true
+        door.open = false;
       }
     }
   }
