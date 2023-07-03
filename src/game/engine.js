@@ -13,9 +13,10 @@ import Deserializer from "../util/deserializer.js";
 import room00 from "../../rooms/room0.js";
 import room01 from "../../rooms/room1.js";
 import room02 from "../../rooms/room2.js";
-import floor from "../objects/floor.js";
+import room03 from "../../rooms/room3.js";
+import room04 from "../../rooms/room4.js";
 
-const roomPatterns = [room00,room01,room02];
+const roomPatterns = [room00,room01,room02,room03,room04];
 
 class Engine {
   gui = Interface.getInstance();

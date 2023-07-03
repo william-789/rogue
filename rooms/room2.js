@@ -2,10 +2,11 @@ export default `
 #
 # 0 D room1 1 key1
 # 1 D room1 0
+# 2 D room3 0 key2
 #
 # k key1
 #
-WWWWWWWWWW
+WWWWWW2WWW
 WS   G   W
 W        W
 W  m  k  W
