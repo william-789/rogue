@@ -29,6 +29,9 @@ class MovementController {
       this.enemies = room.enemies;
       let roomObjects = room.getState();
       this.hero.nextPosition = this.hero.position.plus(vector);
+      console.log(this.hero.nextPosition);
+      // Prevents hero from leaving the grid
+      if(this.outOfRange(this.hero.nextPosition)) return;
       let collision = this.collision(this.hero, roomObjects);
       //proceeds if there's no wall
       if (!collision) {
@@ -64,6 +67,8 @@ class MovementController {
             collision = this.collision(enemy,roomObjects);
             // consider Hero as far if there's a wall between them
             if(collision) enemy.distToHeroSq = Enemy.closeDistSquared + 1;
+            // Prevents enemy from staying over another enemy
+            if(this.objectInRoom(enemy,roomObjects) instanceof Enemy) collision = true;
           }
           // checks if hero attacks or enemy attacks
           if(enemy.position.equals(this.hero.nextPosition)) {
@@ -110,6 +115,11 @@ class MovementController {
         object.position.equals(char.nextPosition)
     );
     return objectInRoom;
+  }
+
+  outOfRange(charPosition) {
+    if(charPosition.y > 9 || charPosition.y < 0 || charPosition.x > 9 || charPosition.x < 0) return true;
+    return false;
   }
 }
 
