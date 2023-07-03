@@ -66,8 +66,6 @@ class MovementController {
             collision = this.collision(enemy,roomObjects);
             // consider Hero as far if there's a wall between them
             if(collision) enemy.distToHeroSq = Enemy.closeDistSquared + 1;
-            // Prevents enemy from staying over another enemy
-            if(this.objectInRoom(enemy,roomObjects) instanceof Enemy) collision = true;
           }
           // checks if hero attacks or enemy attacks
           if(enemy.position.equals(this.hero.nextPosition)) {
@@ -105,6 +103,7 @@ class MovementController {
   collision(char, roomObjects) {
     let objectInRoom = this.objectInRoom(char, roomObjects);
     if(char === this.hero && objectInRoom instanceof Door) return false;
+    if(char instanceof Enemy && objectInRoom instanceof Enemy) return true;
     if (!objectInRoom || !objectInRoom.collision) return false;
     return true;
   }
