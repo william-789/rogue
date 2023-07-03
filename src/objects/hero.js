@@ -51,7 +51,7 @@ class Hero extends Character {
         item.position = new Position(i,0);
         this.items.push(item);
         if(item instanceof Weapon) this.attack += item.additionalAttack;
-        console.log("Item added to bag on position x = ", i-6);
+        console.log("Item added to bag on position", i-6);
         break;
       }
     }

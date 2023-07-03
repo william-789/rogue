@@ -118,8 +118,7 @@ export default class Deserializer {
         if (newObject instanceof Enemy) newObject.health = object.health;
         newRoom.changeState(newObject);
       }
-      roomList.push(newRoom); // Add the newRoom object to the roomList array
-      console.log(newRoom);
+      roomList.push(newRoom); // Add the newRoom to the roomList
     }
     return roomList;
   }

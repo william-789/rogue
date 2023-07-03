@@ -82,7 +82,6 @@ class StatusBar {
   }
 
   update() {
-    console.log("Hero health status", this.hero.health);
     this.health.splice(0,this.health.length);
     this.getHealth();
     this.gui.clearStatusImages();

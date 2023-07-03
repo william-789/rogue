@@ -29,7 +29,6 @@ class MovementController {
       this.enemies = room.enemies;
       let roomObjects = room.getState();
       this.hero.nextPosition = this.hero.position.plus(vector);
-      console.log(this.hero.nextPosition);
       // Prevents hero from leaving the grid
       if(this.outOfRange(this.hero.nextPosition)) return;
       let collision = this.collision(this.hero, roomObjects);
