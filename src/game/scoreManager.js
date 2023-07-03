@@ -103,7 +103,7 @@ class ScoreManager {
     let sortedBoard = this.leaderboard.slice(0);
     sortedBoard.sort((a,b) => b.points - a.points);
     // get first 8 elements
-    sortedBoard = sortedBoard.slice(0,9);
+    sortedBoard = sortedBoard.slice(0,8);
 
     let scoreElement = document.getElementById("score");
     let typeWrapper = document.createElement("div");
