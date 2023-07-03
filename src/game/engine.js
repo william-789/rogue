@@ -15,8 +15,10 @@ import room01 from "../../rooms/room1.js";
 import room02 from "../../rooms/room2.js";
 import room03 from "../../rooms/room3.js";
 import room04 from "../../rooms/room4.js";
+import room05 from "../../rooms/room5.js";
+import room06 from "../../rooms/room6.js";
 
-const roomPatterns = [room00,room01,room02,room03,room04];
+const roomPatterns = [room00,room01,room02,room03,room04,room05,room06];
 
 class Engine {
   gui = Interface.getInstance();

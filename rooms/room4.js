@@ -1,14 +1,15 @@
 export default `
 #
 # O D room3 1
-# 1 D room4 0 key 3
+# 1 D room5 0 key3
+#
 # k key3
 #
 WWWWWW1WWW
 W WWWWdW W
-W W D  W W
+W W m  W W
 W WWWW   W
-W        W
+W m      W
 WWWWWWW  W
 W  k  d  W
 WdWWdWW  W
