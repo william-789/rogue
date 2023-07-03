@@ -1,6 +1,7 @@
 import Health from "../objects/health.js";
 import Position from "../util/position.js";
 import Interface from "./interface.js";
+import Darkness from "../objects/dark.js";
 
 class StatusBar {
   health = [];//transformed from number(hero.health) into obj array by getHealth()
@@ -85,7 +86,16 @@ class StatusBar {
     this.health.splice(0,this.health.length);
     this.getHealth();
     this.gui.clearStatusImages();
+    this.gui.addStatusImages(this.getBackground());
     this.gui.addStatusImages(this.getObjStatus());
+  }
+
+  getBackground() {
+    let background = [];
+    for (let i = 0; i < 10; i++) {
+      background.push(new Darkness(new Position(i,0)));
+    }
+    return background;
   }
 }
 

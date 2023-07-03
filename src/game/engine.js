@@ -59,6 +59,7 @@ class Engine {
 
     // Add statusBar to gui
     this.statusBar.init(this.hero);
+    this.gui.addStatusImages(this.statusBar.getBackground());
     this.gui.addStatusImages(this.statusBar.getObjStatus());
 
     this.gui.start();
