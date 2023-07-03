@@ -1,8 +1,11 @@
 import Score from "./score.js";
+import StateManager from "../util/stateManager.js";
+
 class ScoreManager {
   registryList = []
   types = ["BadGuy","Hammer","Bat","Skeleton","Meat","Key","Movement","Thief","Diamond"];
   EOG = false; // End of Game
+  leaderboard = [];
 
   static #instance;
   static getInstance() {
@@ -77,11 +80,77 @@ class ScoreManager {
     typeWrapper.appendChild(finalScoreEl);
     pointWrapper.appendChild(finalScore);
     scoreElement.append(typeWrapper,pointWrapper);
+    // add leaderboard
+    this.leaderboardRecover();
+
     // style based on game height
     const game = document.getElementById("game");
     scoreWrapper.style.minHeight = game.offsetHeight + "px";
 
     scoreWrapper.classList.add("show");
+  }
+
+  leaderboardRecover() {
+    const savedLeaderboard = StateManager.loadState("leaderboard");
+    if(savedLeaderboard) {
+      for (const score of savedLeaderboard) {
+        this.leaderboard.push(new Score(score.type,score.points));
+      }
+    }
+    let name = "You"
+    this.leaderboard.push(new Score(name,this.getFinalScore()));
+    // top 9
+    let sortedBoard = this.leaderboard.slice(0);
+    sortedBoard.sort((a,b) => b.points - a.points);
+    // get first 8 elements
+    sortedBoard = sortedBoard.slice(0,9);
+
+    let scoreElement = document.getElementById("score");
+    let typeWrapper = document.createElement("div");
+    let pointWrapper = document.createElement("div");
+    // create header
+    let typeElement = document.createElement("p");
+    typeElement.innerHTML = "Top";
+    typeElement.classList.add("header");
+    let pointElement = document.createElement("p");
+    pointElement.innerHTML = "8";
+    pointElement.classList.add("header");
+    typeWrapper.appendChild(typeElement);
+    pointWrapper.appendChild(pointElement);
+
+    // Add top 8 scores to list
+    let playerIsOnTop = false;
+    for (const score of sortedBoard) {
+      let typeElement = document.createElement("p");
+      typeElement.innerHTML = `${score.type}`;
+      let pointElement = document.createElement("p");
+      pointElement.innerHTML = `${score.points}`;
+      if(score.type === name) { // identify player
+        typeElement.classList.add("player");
+        pointElement.classList.add("player");
+        playerIsOnTop = true;
+      }
+      typeWrapper.appendChild(typeElement);
+      pointWrapper.appendChild(pointElement);
+    }
+    // Show player score at the end if they're not on the top scores
+    if(!playerIsOnTop) {
+      let playerScoreEl = document.createElement("p");
+      playerScoreEl.classList.add("player");
+      playerScoreEl.innerHTML = name;
+      let finalScore = document.createElement("p");
+      finalScore.classList.add("player");
+      finalScore.innerHTML = `${this.getFinalScore()}`;
+      typeWrapper.appendChild(playerScoreEl);
+      pointWrapper.appendChild(finalScore);
+    }
+    scoreElement.append(typeWrapper,pointWrapper);
+
+    const leaderboardLength = this.leaderboard.length;
+    // Assign correct name to add to leaderboard file
+    name = `game${leaderboardLength}`
+    this.leaderboard[leaderboardLength - 1].type = name;
+    StateManager.saveState(this.leaderboard,"leaderboard");
   }
 }
 
