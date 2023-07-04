@@ -1,6 +1,6 @@
 export default `
 #
-# O D room3 1
+# 0 D room3 1
 # 1 D room5 0 key3
 #
 # k key3
