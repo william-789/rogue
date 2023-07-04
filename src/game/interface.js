@@ -27,7 +27,7 @@ class Interface {
 
     #processStatusImage(image) {
         let element = document.createElement("img");
-        element.src = "../../images/" + image.image;
+        element.src = "/images/" + image.image;
         element.style.position = "absolute";
         element.style.width = Interface.#X_RATIO + "%";
         element.style.height = Interface.#Y_RATIO + "%";
@@ -44,7 +44,7 @@ class Interface {
         let x = image.position.x * Interface.#X_RATIO;
         let y = (image.position.y + 1) * Interface.#Y_RATIO;
         let element = document.createElement("img");
-        element.src = "../../images/" + image.image;
+        element.src = "/images/" + image.image;
         element.style.position = "absolute";
         element.style.width = Interface.#X_RATIO + "%";
         element.style.height = Interface.#Y_RATIO + "%";
@@ -150,15 +150,15 @@ class Interface {
             let y = (image.image.position.y + 1) * Interface.#Y_RATIO;
             image.element.style.left = x + "%";
             image.element.style.top = y + "%";
-            if(image.element.src !== location.origin + "../../images/" + image.image.image) {
-                image.element.src = "../../images/" + image.image.image;
+            if(image.element.src !== location.origin + "/images/" + image.image.image) {
+                image.element.src = "/images/" + image.image.image;
             }
         });
         this.#statusImages.forEach(image => {
             let x = image.image.position.x * Interface.#X_RATIO;
             image.element.style.left = x + "%";
-            if(image.element.src !== location.origin + "../../images/" + image.image.image) {
-                image.element.src = "../../images/" + image.image.image;
+            if(image.element.src !== location.origin + "/images/" + image.image.image) {
+                image.element.src = "/images/" + image.image.image;
             }
         });
     }
