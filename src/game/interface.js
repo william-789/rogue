@@ -1,5 +1,5 @@
 import FireTile from "./firetile.js";
-
+// root cause of github not loading images
 class Interface {
     static #NUM_SQUARES_X = 10;
     static #NUM_SQUARES_Y = 10;
